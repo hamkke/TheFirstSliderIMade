@@ -85,7 +85,7 @@
         };
         
         function slide() {
-                nextBtn.addEventListener('click', function(){
+            nextBtn.addEventListener('click', function(){
                 const curSlide = document.querySelector(`.${showClass}`)
                 const curDot = document.querySelector(`.${actClass}`)
                 if(curSlide) {
@@ -146,7 +146,7 @@
         };
 
         slide();
-        // setInterval(moveSlide, 5000);
+        setInterval(moveSlide, 1000);
     </script>
 </body>
 </html>

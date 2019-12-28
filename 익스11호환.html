@@ -131,8 +131,7 @@ function slide() {
 
 
     var li_click = function(idx){
-        dots[idx].onclick = function(){
-            // var slides = document.querySelectorAll('.visual_list li');
+        dots[idx].addEventListener('click', function(){
             if(!dots[idx].classList.add(actClass)){
                 for(var i=0;i<dots.length;i++){
                     dots[i].classList.remove(actClass);
@@ -144,16 +143,16 @@ function slide() {
                 dots[idx].classList.remove(actClass);
                 slides[idx].classList.remove(showClass);
             }
-        };
+        });
     }
 
     for(var i=0; i<dots.length; i++){
-    li_click(i);  
+        li_click(i);  
     }
 };
 
 slide();
-// setInterval(moveSlide, 500);
+setInterval(moveSlide, 1000);
     </script>
 </body>
 </html>
