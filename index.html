@@ -42,7 +42,6 @@
     </div>
 
     <script type="text/javascript">
-        const wrap = document.querySelector('.wrap');
         const showClass = 'show';
         const actClass = 'active';
         const firstSlide = document.querySelector('.li-list li:first-child');
@@ -55,8 +54,9 @@
         const slides = Array.from(track.children);
         const dotNav = document.querySelector(".dot-list");
         const dots = Array.from(dotNav.children);
-        const wh = window.innerHeight;
 
+        const wrap = document.querySelector('.wrap');
+        const wh = window.innerHeight;
         wrap.style.height = wh+'px';
         
         firstSlide.classList.add(showClass);

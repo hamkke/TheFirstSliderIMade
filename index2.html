@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>슬라이더 IE11호환</title>
+    <style>
+        * {margin:0; padding:0; box-sizing:border-box;}
+        li {list-style:none;}
+        a {text-decoration:none;}
+        .wrap {position:relative; font-size:0;}
+        .li-list {height:100%;}
+        .li-list .slide {position:absolute; top:0; left:50%; width:100%;  height:100%; margin-left:-50%; background-color:#b4da06; font-size:500px;text-align:center;}
+        .btn {position: fixed; top:50%; width:60px; margin-top:-30px; border:4px solid #ff5345; background-color:#fff; color:#000; font-size:20px; line-height:50px; text-align:center; z-index:1}
+        .prev-btn {left:10%;}
+        .next-btn {right:10%;}
+        .dot-list {position:absolute; bottom:8%; left:50%; margin-left:-305px; z-index:1;}
+        .dot-list li {display:inline-block; width:170px; height:12px; background-color:#fff; transition-duration: 0.5s;}
+        .dot-list li + li {margin-left:50px;}
+
+        .slide.show {z-index:1;}
+        .dot-list li.active {background-color:#ff5345;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul class="li-list">
+            <li class="slide">❤일</li>
+            <li class="slide">이❤</li>
+            <li class="slide">❤삼❤</li>
+        </ul>
+
+        <a href="#" title="이전버튼" class="btn prev-btn">이전</a>
+        <a href="#" title="다음버튼" class="btn next-btn">다음</a>
+
+        <ul class="dot-list">
+            <li class="dot">1</li>
+            <li class="dot">2</li>
+            <li class="dot">3</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+    const showClass = 'show';
+    const actClass = 'active';
+    const firstSlide = document.querySelector('.li-list li:first-child');
+    const lastSlide = document.querySelector('.li-list li:last-child');
+    const nextBtn = document.querySelector('.next-btn'); // next button
+    const prevBtn = document.querySelector('.prev-btn'); // prev button
+    const firstDot = document.querySelector(".dot-list li:first-child");
+    const lastDot = document.querySelector(".dot-list li:last-child");
+    const track = document.querySelector(".li-list");
+    const slides = document.querySelectorAll('.li-list li');
+    const dotNav = document.querySelector(".dot-list");
+    const dots = document.querySelectorAll('.dot-list li');
+
+    const wrap = document.querySelector('.wrap');
+    const wh = window.innerHeight;
+    wrap.style.height = wh+'px';
+    
+    firstSlide.classList.add(showClass);
+    firstDot.classList.add(actClass);
+
+    function moveSlide() {
+    var curSlide = document.querySelector('.show')
+    var curDot = document.querySelector('.active')
+    if (curSlide) {
+        curSlide.classList.remove(showClass);
+        curDot.classList.remove(actClass);
+        var nextSlide= curSlide.nextElementSibling;
+        var nextDot= curDot.nextElementSibling;
+        if (nextSlide) {
+            nextSlide.classList.add(showClass);
+            nextDot.classList.add(actClass);
+        } else {
+            firstSlide.classList.add(showClass);
+            firstDot.classList.add(actClass);
+        }
+    }   else {
+        firstSlide.classList.add(showClass);
+        firstDot.classList.add(actClass);
+    }
+};
+
+function slide() {
+    nextBtn.addEventListener('click', function(){
+        event.preventDefault();
+        var curSlide = document.querySelector('.show')
+        var curDot = document.querySelector('.active')
+        if(curSlide) {
+            curSlide.classList.remove(showClass);
+            curDot.classList.remove(actClass);
+            const nextSlide= curSlide.nextElementSibling;
+            const nextDot= curDot.nextElementSibling;
+            if(nextSlide) {
+                nextSlide.classList.add(showClass);
+                nextDot.classList.add(actClass);
+            } else {
+                firstSlide.classList.add(showClass);
+                firstDot.classList.add(actClass);    
+            }
+        } else {
+            firstSlide.classList.add(showClass);
+            firstDot.classList.add(actClass);
+        }
+    });
+
+    prevBtn.addEventListener('click', function(){
+        event.preventDefault();
+        var curSlide = document.querySelector('.show')
+        var curDot = document.querySelector('.active')
+        if(curSlide) {
+            curSlide.classList.remove(showClass);
+            curDot.classList.remove(actClass);
+            const prevSlide= curSlide.previousElementSibling;
+            const prevDot= curDot.previousElementSibling;
+            if(prevSlide) {
+                prevSlide.classList.add(showClass);
+                prevDot.classList.add(actClass);
+            } else {
+                lastSlide.classList.add(showClass);    
+                lastDot.classList.add(actClass);
+            }
+        } else {
+            lastSlide.classList.add(showClass);
+            prevDot.classList.add(actClass);
+        }
+   
+    });
+
+
+    var li_click = function(idx){
+        dots[idx].onclick = function(){
+            // var slides = document.querySelectorAll('.visual_list li');
+            if(!dots[idx].classList.add(actClass)){
+                for(var i=0;i<dots.length;i++){
+                    dots[i].classList.remove(actClass);
+                    slides[i].classList.remove(showClass);
+                }
+                dots[idx].classList.add(actClass);
+                slides[idx].classList.add(showClass);
+            } else {
+                dots[idx].classList.remove(actClass);
+                slides[idx].classList.remove(showClass);
+            }
+        };
+    }
+
+    for(var i=0; i<dots.length; i++){
+    li_click(i);  
+    }
+};
+
+slide();
+// setInterval(moveSlide, 500);
+    </script>
+</body>
+</html>
