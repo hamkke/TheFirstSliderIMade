@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>내가 만든 첫번째 슬라이더</title>
+    <style>
+        * {margin:0; padding:0; box-sizing:border-box;}
+        li {list-style:none;}
+        a {text-decoration:none;;}
+        .wrap {position:relative; font-size:0;}
+        .li-list {height:100%;}
+        .li-list .slide {position:absolute; top:0; left:50%; width:100%;  height:100%; margin-left:-50%; background-color:#b4da06; font-size:500px;text-align:center;  opacity:0.6;}
+        .btn {position: fixed; top:50%; width:60px; margin-top:-30px; border:4px solid #ff5345; background-color:#fff; color:#000; font-size:20px; line-height:50px; text-align:center; z-index:1}
+        .prev-btn {left:10%;}
+        .next-btn {right:10%;}
+        .dot-list {position:absolute; bottom:8%; left:50%; margin-left:-305px; z-index:1;}
+        .dot-list li {display:inline-block; width:170px; height:12px; background-color:#fff; transition-duration: 0.5s;}
+        .dot-list li + li {margin-left:50px;}
+
+        .slide.show {opacity:1 !important; z-index:1;}
+        .dot-list li.active {background-color:#ff5345;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul class="li-list">
+            <li class="slide">❤일</li>
+            <li class="slide">이❤</li>
+            <li class="slide">❤삼❤</li>
+        </ul>
+
+        <a href="#" title="이전버튼" class="btn prev-btn">이전</a>
+        <a href="#" title="다음버튼" class="btn next-btn">다음</a>
+
+        <ul class="dot-list">
+            <li class="dot">1</li>
+            <li class="dot">2</li>
+            <li class="dot">3</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        const wrap = document.querySelector('.wrap');
+        const showClass = 'show';
+        const actClass = 'active';
+        const firstSlide = document.querySelector('.li-list li:first-child');
+        const lastSlide = document.querySelector('.li-list li:last-child');
+        const nextBtn = document.querySelector('.next-btn'); // next button
+        const prevBtn = document.querySelector('.prev-btn'); // prev button
+        const firstDot = document.querySelector(".dot-list li:first-child");
+        const lastDot = document.querySelector(".dot-list li:last-child");
+        const track = document.querySelector(".li-list");
+        const slides = Array.from(track.children);
+        const dotNav = document.querySelector(".dot-list");
+        const dots = Array.from(dotNav.children);
+        const wh = window.innerHeight;
+
+        wrap.style.height = wh+'px';
+        
+        firstSlide.classList.add(showClass);
+        firstDot.classList.add(actClass);
+
+
+        function moveSlide() {
+            const curSlide = document.querySelector(`.${showClass}`)
+            const curDot = document.querySelector(`.${actClass}`)
+            if (curSlide) {
+                curSlide.classList.remove(showClass);
+                curDot.classList.remove(actClass);
+                const nextSlide= curSlide.nextElementSibling;
+                const nextDot= curDot.nextElementSibling;
+                if (nextSlide) {
+                    nextSlide.classList.add(showClass);
+                    nextDot.classList.add(actClass);
+                } else {
+                    firstSlide.classList.add(showClass);
+                    firstDot.classList.add(actClass);
+                }
+            }   else {
+                firstSlide.classList.add(showClass);
+                firstDot.classList.add(actClass);
+            }
+        };
+        
+        function slide() {
+                nextBtn.addEventListener('click', function(){
+                const curSlide = document.querySelector(`.${showClass}`)
+                const curDot = document.querySelector(`.${actClass}`)
+                if(curSlide) {
+                    curSlide.classList.remove(showClass);
+                    curDot.classList.remove(actClass);
+                    const nextSlide= curSlide.nextElementSibling;
+                    const nextDot= curDot.nextElementSibling;
+                    if(nextSlide) {
+                        nextSlide.classList.add(showClass);
+                        nextDot.classList.add(actClass);
+                    } else {
+                        firstSlide.classList.add(showClass);
+                        firstDot.classList.add(actClass);    
+                    }
+                } else {
+                    firstSlide.classList.add(showClass);
+                    firstDot.classList.add(actClass);
+                }
+            });
+
+            prevBtn.addEventListener('click', function(){
+                const curSlide = document.querySelector(`.${showClass}`)
+                const curDot = document.querySelector(`.${actClass}`)
+                if(curSlide) {
+                    curSlide.classList.remove(showClass);
+                    curDot.classList.remove(actClass);
+                    const prevSlide= curSlide.previousElementSibling;
+                    const prevDot= curDot.previousElementSibling;
+                    if(prevSlide) {
+                        prevSlide.classList.add(showClass);
+                        prevDot.classList.add(actClass);
+                    } else {
+                        lastSlide.classList.add(showClass);    
+                        lastDot.classList.add(actClass);
+                    }
+                } else {
+                    lastSlide.classList.add(showClass);
+                    prevDot.classList.add(actClass);
+                }
+               
+            });
+            
+            dotNav.addEventListener("click", e => {
+                const onDot = e.target.closest("li");
+                const onIndex = dots.findIndex(dots => dots === onDot);
+                const onSlide = slides[onIndex];
+                    
+                const curSlide = document.querySelector(`.${showClass}`);     
+                const curDot = document.querySelector(`.${actClass}`);         
+
+                if (onSlide && curSlide) {
+                    curSlide.classList.remove(showClass);
+                    curDot.classList.remove(actClass);
+                    onSlide.classList.add(showClass);
+                    onDot.classList.add(actClass);
+                } 
+            });
+        };
+
+        slide();
+        // setInterval(moveSlide, 5000);
+    </script>
+</body>
+</html>
