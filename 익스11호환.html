@@ -15,7 +15,7 @@
         .btn {position: fixed; top:50%; width:60px; margin-top:-30px; border:4px solid #ff5345; background-color:#fff; color:#000; font-size:20px; line-height:50px; text-align:center; z-index:1}
         .prev-btn {left:10%;}
         .next-btn {right:10%;}
-        .dot-list {position:absolute; bottom:8%; left:50%; margin-left:-305px; z-index:1;}
+        .dot-list {position:absolute; left:50%; bottom:8%; margin-left:-305px; z-index:1;}
         .dot-list li {display:inline-block; width:170px; height:12px; background-color:#fff; transition-duration: 0.5s;}
         .dot-list li + li {margin-left:50px;}
 
@@ -42,117 +42,117 @@
     </div>
 
     <script type="text/javascript">
-    const showClass = 'show';
-    const actClass = 'active';
-    const firstSlide = document.querySelector('.li-list li:first-child');
-    const lastSlide = document.querySelector('.li-list li:last-child');
-    const nextBtn = document.querySelector('.next-btn'); // next button
-    const prevBtn = document.querySelector('.prev-btn'); // prev button
-    const firstDot = document.querySelector(".dot-list li:first-child");
-    const lastDot = document.querySelector(".dot-list li:last-child");
-    const track = document.querySelector(".li-list");
-    const slides = document.querySelectorAll('.li-list li');
-    const dotNav = document.querySelector(".dot-list");
-    const dots = document.querySelectorAll('.dot-list li');
+        const showClass = 'show';
+        const actClass = 'active';
+        const firstSlide = document.querySelector('.li-list li:first-child');
+        const lastSlide = document.querySelector('.li-list li:last-child');
+        const nextBtn = document.querySelector('.next-btn'); // next button
+        const prevBtn = document.querySelector('.prev-btn'); // prev button
+        const firstDot = document.querySelector(".dot-list li:first-child");
+        const lastDot = document.querySelector(".dot-list li:last-child");
+        const track = document.querySelector(".li-list");
+        const slides = document.querySelectorAll('.li-list li');
+        const dotNav = document.querySelector(".dot-list");
+        const dots = document.querySelectorAll('.dot-list li');
 
-    const wrap = document.querySelector('.wrap');
-    const wh = window.innerHeight;
-    wrap.style.height = wh+'px';
-    
-    firstSlide.classList.add(showClass);
-    firstDot.classList.add(actClass);
-
-    function moveSlide() {
-    var curSlide = document.querySelector('.show')
-    var curDot = document.querySelector('.active')
-    if (curSlide) {
-        curSlide.classList.remove(showClass);
-        curDot.classList.remove(actClass);
-        var nextSlide= curSlide.nextElementSibling;
-        var nextDot= curDot.nextElementSibling;
-        if (nextSlide) {
-            nextSlide.classList.add(showClass);
-            nextDot.classList.add(actClass);
-        } else {
-            firstSlide.classList.add(showClass);
-            firstDot.classList.add(actClass);
-        }
-    }   else {
+        const wrap = document.querySelector('.wrap');
+        const wh = window.innerHeight;
+        wrap.style.height = wh+'px';
+        
         firstSlide.classList.add(showClass);
         firstDot.classList.add(actClass);
-    }
-};
 
-function slide() {
-    nextBtn.addEventListener('click', function(){
-        event.preventDefault();
-        var curSlide = document.querySelector('.show')
-        var curDot = document.querySelector('.active')
-        if(curSlide) {
-            curSlide.classList.remove(showClass);
-            curDot.classList.remove(actClass);
-            const nextSlide= curSlide.nextElementSibling;
-            const nextDot= curDot.nextElementSibling;
-            if(nextSlide) {
-                nextSlide.classList.add(showClass);
-                nextDot.classList.add(actClass);
-            } else {
-                firstSlide.classList.add(showClass);
-                firstDot.classList.add(actClass);    
-            }
-        } else {
-            firstSlide.classList.add(showClass);
-            firstDot.classList.add(actClass);
-        }
-    });
-
-    prevBtn.addEventListener('click', function(){
-        event.preventDefault();
-        var curSlide = document.querySelector('.show')
-        var curDot = document.querySelector('.active')
-        if(curSlide) {
-            curSlide.classList.remove(showClass);
-            curDot.classList.remove(actClass);
-            const prevSlide= curSlide.previousElementSibling;
-            const prevDot= curDot.previousElementSibling;
-            if(prevSlide) {
-                prevSlide.classList.add(showClass);
-                prevDot.classList.add(actClass);
-            } else {
-                lastSlide.classList.add(showClass);    
-                lastDot.classList.add(actClass);
-            }
-        } else {
-            lastSlide.classList.add(showClass);
-            prevDot.classList.add(actClass);
-        }
-   
-    });
-
-
-    var li_click = function(idx){
-        dots[idx].addEventListener('click', function(){
-            if(!dots[idx].classList.add(actClass)){
-                for(var i=0;i<dots.length;i++){
-                    dots[i].classList.remove(actClass);
-                    slides[i].classList.remove(showClass);
+        function moveSlide() {
+            var curSlide = document.querySelector('.show')
+            var curDot = document.querySelector('.active')
+            if (curSlide) {
+                curSlide.classList.remove(showClass);
+                curDot.classList.remove(actClass);
+                var nextSlide= curSlide.nextElementSibling;
+                var nextDot= curDot.nextElementSibling;
+                if (nextSlide) {
+                    nextSlide.classList.add(showClass);
+                    nextDot.classList.add(actClass);
+                } else {
+                    firstSlide.classList.add(showClass);
+                    firstDot.classList.add(actClass);
                 }
-                dots[idx].classList.add(actClass);
-                slides[idx].classList.add(showClass);
-            } else {
-                dots[idx].classList.remove(actClass);
-                slides[idx].classList.remove(showClass);
+            }   else {
+                firstSlide.classList.add(showClass);
+                firstDot.classList.add(actClass);
             }
-        });
-    }
+        };
 
-    for(var i=0; i<dots.length; i++){
-        li_click(i);  
-    }
-};
+        function slide() {
+            nextBtn.addEventListener('click', function(){
+                event.preventDefault();
+                var curSlide = document.querySelector('.show')
+                var curDot = document.querySelector('.active')
+                if(curSlide) {
+                    curSlide.classList.remove(showClass);
+                    curDot.classList.remove(actClass);
+                    const nextSlide= curSlide.nextElementSibling;
+                    const nextDot= curDot.nextElementSibling;
+                    if(nextSlide) {
+                        nextSlide.classList.add(showClass);
+                        nextDot.classList.add(actClass);
+                    } else {
+                        firstSlide.classList.add(showClass);
+                        firstDot.classList.add(actClass);    
+                    }
+                } else {
+                    firstSlide.classList.add(showClass);
+                    firstDot.classList.add(actClass);
+                }
+            });
 
-slide();
-setInterval(moveSlide, 1000);
+            prevBtn.addEventListener('click', function(){
+                event.preventDefault();
+                var curSlide = document.querySelector('.show')
+                var curDot = document.querySelector('.active')
+                if(curSlide) {
+                    curSlide.classList.remove(showClass);
+                    curDot.classList.remove(actClass);
+                    const prevSlide= curSlide.previousElementSibling;
+                    const prevDot= curDot.previousElementSibling;
+                    if(prevSlide) {
+                        prevSlide.classList.add(showClass);
+                        prevDot.classList.add(actClass);
+                    } else {
+                        lastSlide.classList.add(showClass);    
+                        lastDot.classList.add(actClass);
+                    }
+                } else {
+                    lastSlide.classList.add(showClass);
+                    prevDot.classList.add(actClass);
+                }
+        
+            });
+
+
+            var li_click = function(idx){
+                dots[idx].addEventListener('click', function(){
+                    if(!dots[idx].classList.add(actClass)){
+                        for(var i=0;i<dots.length;i++){
+                            dots[i].classList.remove(actClass);
+                            slides[i].classList.remove(showClass);
+                        }
+                        dots[idx].classList.add(actClass);
+                        slides[idx].classList.add(showClass);
+                    } else {
+                        dots[idx].classList.remove(actClass);
+                        slides[idx].classList.remove(showClass);
+                    }
+                });
+            }
+
+            for(var i=0; i<dots.length; i++){
+                li_click(i);  
+            }
+        };
+
+        slide();
+        setInterval(moveSlide, 1000);
     </script>
 </body>
 </html>
